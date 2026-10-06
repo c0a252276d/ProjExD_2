@@ -28,7 +28,7 @@ def check_bound(rect: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
-
+    #Surface（画像や図形などの描画オブジェクト）を、別のSurface（主にメインの画面）に貼り付けて描画するコマンドです
 def gameover(screen: pg.Surface) -> None:
     WIDTH, HEIGHT = screen.get_size()
 
