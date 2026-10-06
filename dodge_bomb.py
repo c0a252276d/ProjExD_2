@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+import time
 import pygame as pg
 
 
@@ -26,6 +27,30 @@ def check_bound(rect: pg.Rect) -> tuple[bool, bool]:
     if rect.top < 0 or HEIGHT < rect.bottom:  # 縦方向判定
         tate = False
     return yoko, tate
+
+
+def gameover(screen: pg.Surface) -> None:
+    WIDTH, HEIGHT = screen.get_size()
+
+    black_surf = pg.Surface((WIDTH, HEIGHT))
+    black_surf.fill((0, 0, 0))
+    black_surf.set_alpha(160)
+
+    fonto = pg.font.Font(None, 80)
+    txt = fonto.render("Game Over", True, (255, 255, 255))
+    txt_rct = txt.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    black_surf.blit(txt, txt_rct)
+    screen.blit(black_surf, [0, 0])
+
+    kk_img= pg.image.load("fig/8.png")
+    kk_img2=pg.image.load("fig/8.png")
+    kk_rct=kk_img.get_rect(center=(WIDTH//2-200,HEIGHT//2))
+    kk_rct2=kk_img2.get_rect(center=(WIDTH//2+200,HEIGHT//2))
+    black_surf.blit(kk_img,kk_rct,)
+    black_surf.blit(kk_img,kk_rct2,)
+    screen.blit(black_surf, [0, 0])
+    pg.display.update()
+    time.sleep(5)
     
 
 def main():
@@ -51,7 +76,7 @@ def main():
         screen.blit(bg_img, [0, 0]) 
 
         if kk_rct.colliderect(bb_rct):  # 練習4：kkとbbのrectが重なっていたら
-            print("game over")
+            gameover(screen)
             return
 
         key_lst = pg.key.get_pressed()
